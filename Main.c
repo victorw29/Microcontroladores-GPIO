@@ -116,9 +116,9 @@ void inicializar_keypad() {
     for (uint i = 0; i < 8; i++) {
         gpio_init(1 + i);
         if (i < 4)
-            gpio_set_dir(1 + i, GPIO_OUT);
+            gpio_set_dir(1 + i, GPIO_OUT);  //Inicializa as portas 1 a 4 como saida
         else
-            gpio_set_dir(1 + i, GPIO_IN);
+            gpio_set_dir(1 + i, GPIO_IN);   //Inicializa as portas 5 a 8 como entrada
     }
 }
 
@@ -180,3 +180,4 @@ int main() {
 
     return 0;
 }
+
