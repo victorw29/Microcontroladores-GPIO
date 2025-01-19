@@ -11,16 +11,25 @@ Este projeto implementa um sistema de teclado matricial de 4x4 em um Raspberry P
 - **Buzzer**: Um buzzer é acionado sempre que uma tecla é pressionada, fornecendo um feedback sonoro.
 - **Debounce**: A funcionalidade de debounce foi implementada para evitar múltiplas leituras rápidas da mesma tecla pressionada.
 
-## Diagrama de Pinagem
+  
+### Diagrama de Pinagem
 
-| Pino | Função |
-|------|--------|
-| 2-5  | Linhas do teclado (GPIO) |
-| 6-9  | Colunas do teclado (GPIO) |
-| 10-12| LED RGB 1 (R, G, B) |
-| 13-15| LED RGB 2 (R, G, B) |
-| 16-18| LED RGB 3 (R, G, B) |
-| 19   | Buzzer |
+┌──────────────────────────┬───────────────┐
+│ Componente               │ GPIO/Pino     │
+├──────────────────────────┼───────────────┤
+│ LED Vermelho (RED)       │ GPIO 13       │
+│ LED Verde (GREEN)        │ GPIO 11       │
+│ LED Azul (BLUE)          │ GPIO 12       │
+│ Buzzer                   │ GPIO 21       │
+│ Teclado Linha 1          │ GPIO 1        │
+│ Teclado Linha 2          │ GPIO 2        │
+│ Teclado Linha 3          │ GPIO 3        │
+│ Teclado Linha 4          │ GPIO 4        │
+│ Teclado Coluna 1         │ GPIO 5        │
+│ Teclado Coluna 2         │ GPIO 6        │
+│ Teclado Coluna 3         │ GPIO 7        │
+│ Teclado Coluna 4         │ GPIO 8        │
+└──────────────────────────┴───────────────┘
 
 ## Requisitos
 
@@ -36,7 +45,7 @@ Este projeto implementa um sistema de teclado matricial de 4x4 em um Raspberry P
    Os pinos GPIO do Raspberry Pi Pico são configurados para o teclado, LEDs e buzzer. O teclado matricial é escaneado através de pinos de linha e coluna. LEDs RGB e o buzzer são configurados como pinos de saída.
 
 2. **Escaneamento do Teclado**: 
-   A função `getKeyPressed` escaneia o teclado matricial. Cada linha é ativada uma de cada vez, e as colunas são verificadas para detectar a tecla pressionada.
+   A função `KeyPressed` escaneia o teclado matricial. Cada linha é ativada uma de cada vez, e as colunas são verificadas para detectar a tecla pressionada.
 
 3. **Acionamento dos LEDs e Buzzer**: 
    Quando uma tecla é pressionada, o LED correspondente à tecla é aceso e o buzzer é ativado. O LED permanece aceso por 300 ms, e o buzzer também toca durante esse período.
@@ -54,18 +63,49 @@ Este projeto implementa um sistema de teclado matricial de 4x4 em um Raspberry P
    
 4. Ao pressionar qualquer tecla do teclado, o sistema acenderá o LED RGB correspondente e ativará o buzzer.
 
-## Estrutura do Código
+# Estrutura do Código
 
-O código principal é dividido em várias funções para modularizar o processo:
+O código principal está dividido em várias funções para modularizar o processo e facilitar a manutenção:
 
-- **iniciar_Pinos()**: Inicializa os pinos GPIO para o teclado, LEDs e buzzer.
-- **getKeyPressed()**: Escaneia o teclado para identificar a tecla pressionada.
-- **iniciar_LEDs()**: Configura os LEDs RGB.
-- **iniciar_Buzzer()**: Configura o buzzer.
-- **acionar_led()**: Liga um LED RGB específico.
-- **desligar_led()**: Desliga o LED RGB correspondente.
-- **acionar_buzzer()**: Liga o buzzer.
-- **desligar_buzzer()**: Desliga o buzzer.
+## Inicialização de Pinos
+- **`iniciar_leds()`**: Inicializa os pinos GPIO para os LEDs RGB. Cada LED (vermelho, verde, azul) é configurado como saída e desligado por padrão.
+- **`inicializar_buzzer()`**: Inicializa o pino do buzzer como saída e o mantém desligado por padrão.
+- **Teclado Matricial**: Os pinos do teclado matricial (linhas e colunas) são configurados no loop principal para permitir a detecção da tecla pressionada.
+
+## Controle dos LEDs RGB
+- **`acionar_led(int cor)`**: Liga o LED da cor especificada (vermelho, verde ou azul), se ele estiver desligado.
+- **`desligar_led(int led)`**: Desliga o LED especificado, se ele estiver ligado.
+
+## Controle do Buzzer
+- **`acionar_buzzer()`**: Liga o buzzer, se ele estiver desligado.
+- **`desligar_buzzer()`**: Desliga o buzzer, se ele estiver ligado.
+
+## Lógica Principal
+A lógica do programa detecta as teclas pressionadas no teclado matricial e realiza as seguintes ações:
+- **Tecla 'A'**: Liga o LED vermelho e desliga os outros LEDs e o buzzer.
+- **Tecla 'B'**: Liga o LED verde e desliga os outros LEDs e o buzzer.
+- **Tecla 'C'**: Liga o LED azul e desliga os outros LEDs e o buzzer.
+- **Tecla '#'**: Liga o buzzer e desliga todos os LEDs.
+- **Tecla 'X' (nenhuma tecla pressionada)**: Desliga todos os LEDs e o buzzer.
+
+## Definição dos Pinos
+Os pinos utilizados no código são definidos da seguinte maneira:
+- **LED Vermelho**: GPIO 13
+- **LED Verde**: GPIO 11
+- **LED Azul**: GPIO 12
+- **Buzzer**: GPIO 21
+
+## Teclado Matricial
+As teclas do teclado matricial são mapeadas para uma matriz de 4x4 no código:
+
+|   | 1 | 2 | 3 | A |
+|---|---|---|---|---|
+| 4 | 4 | 5 | 6 | B |
+| 7 | 7 | 8 | 9 | C |
+| * | * | 0 | # | D |
+
+Os pinos GPIO 1 a 4 são utilizados como saídas para as linhas, e os pinos GPIO 5 a 8 são utilizados como entradas para as colunas.
+
 
 ### Arquivo `.gitignore`
 
@@ -134,7 +174,7 @@ Após modificar o caminho do pico-sdk, salve o arquivo CMakeLists.txt. Em seguid
 ## Como clonar este repositório e contribuir com este software
 
 **Passo 1:** Copie o link deste repositório: 
-https://github.com/victorw29/Microcontroladores---GPIO
+https://github.com/victorw29/Microcontroladores-GPIO
 
 **Passo 2:** Abra o terminal ou prompt de comando
 
@@ -144,33 +184,34 @@ Abra o terminal (Linux/macOS) ou o Prompt de Comando/PowerShell (Windows).
 
 No terminal ou prompt de comando, digite o seguinte comando para clonar o repositório:
 
-**git clone** https://github.com/victorw29/Microcontroladores---GPIO
+**git clone** https://github.com/victorw29/Microcontroladores-GPIO
+
 
 **Passo 4:** Acesse o diretório do repositório
 
 Após clonar o repositório, um diretório será criado com o nome do repositório. Para acessar esse diretório, use o comando `cd`:
 
-**cd** https://github.com/victorw29/Microcontroladores---GPIO
+**cd** https://github.com/victorw29/Microcontroladores-GPIO
 
 **Passo 5:** atualize a sua cópia local do Repositório: 
 
 Depois de copiado para sua máquina o repositório, você pode baixar atualizações do repositório com o comando `pull`:
 
-**git pull** https://github.com/victorw29/Microcontroladores---GPIO
+**git pull** https://github.com/victorw29/Microcontroladores-GPIO
 
 **Passo 6:** enviando atualizações para o Repositório principal e o remoto:
 
 **Para enviar as suas alterações para o repositório, basta utilizar o comando `add`:**
 
-**git add** https://github.com/victorw29/Microcontroladores---GPIO
+**git add** https://github.com/victorw29/Microcontroladores-GPIO
 
 **Para commitar as alterações utilize o comanto `commit -m`:** 
 
-**git commit -m** https://github.com/victorw29/Microcontroladores---GPIO "Descrição das Alterações"
+**git commit -m** https://github.com/victorw29/Microcontroladores-GPIO "Descrição das Alterações"
 
 **Para enviar as alterações para o Repositório remoto use o comando `push origin main`:**
 
-**git push origin main** https://github.com/victorw29/Microcontroladores---GPIO
+**git push origin main** https://github.com/victorw29/Microcontroladores-GPIO
 
 ### Ajude-nos a melhorar esse software, contribuindo com seus conhecimentos!!
 
