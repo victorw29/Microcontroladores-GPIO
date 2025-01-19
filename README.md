@@ -252,16 +252,16 @@ Depois de copiado para sua máquina o repositório, você pode baixar atualizaç
 
 ### Ajude-nos a melhorar esse software, contribuindo com seus conhecimentos!!
 
-## Link para o video no youtube: 
+## Link para o video no youtube: https://youtu.be/xHChZULWF2c
 ## Link do projeto no site do Wokwi Simulator: https://wokwi.com/projects/420526874831393793
 
 ## Colaboradores
 
 Segue abaixo os perfis colaboradores deste projeto:
 
-- [AnaBeatriz](https://github.com/anabeatrizsse1) (Função para o primeiro Led);
-- [JonathanMatos](https://github.com/JonathanMatos25) (Função para o segundo led);
-- [PedroAlonso](https://github.com/pedroalonso19) (Função do Buzzer);
-- [Davi](https://github.com/Pr0wer) (Função para o terceiro led);
-- [ViniciusPaz](https://github.com/V1n1Paz) (Função de Escaneamento do Teclado);
-- [VictorWeverthon](https://github.com/victorw29) (Função de Iniciação, Loop);
+- [AnaBeatriz](https://github.com/anabeatrizsse1) (Estrutura do código, definição das bibliotecas e inicialização);
+- [JonathanMatos](https://github.com/JonathanMatos25) (Função do teclado);
+- [PedroAlonso](https://github.com/pedroalonso19) (Função para ler as teclas);
+- [Davi](https://github.com/Pr0wer) (Função para tocar notas);
+- [ViniciusPaz](https://github.com/V1n1Paz) (Estrutura do código, função do buzzer);
+- [VictorWeverthon](https://github.com/victorw29) (criação do repositório, int main, estrutura do código);
