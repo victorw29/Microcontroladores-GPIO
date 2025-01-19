@@ -14,22 +14,23 @@ Este projeto implementa um sistema de teclado matricial de 4x4 em um Raspberry P
   
 ### Diagrama de Pinagem
 
-┌──────────────────────────┬───────────────┐
-│ Componente               │ GPIO/Pino     │
-├──────────────────────────┼───────────────┤
-│ LED Vermelho (RED)       │ GPIO 13       │
-│ LED Verde (GREEN)        │ GPIO 11       │
-│ LED Azul (BLUE)          │ GPIO 12       │
-│ Buzzer                   │ GPIO 21       │
-│ Teclado Linha 1          │ GPIO 1        │
-│ Teclado Linha 2          │ GPIO 2        │
-│ Teclado Linha 3          │ GPIO 3        │
-│ Teclado Linha 4          │ GPIO 4        │
-│ Teclado Coluna 1         │ GPIO 5        │
-│ Teclado Coluna 2         │ GPIO 6        │
-│ Teclado Coluna 3         │ GPIO 7        │
-│ Teclado Coluna 4         │ GPIO 8        │
-└──────────────────────────┴───────────────┘
+## Diagrama de Pinagem
+
+| Componente              | GPIO/Pino |
+|-------------------------|-----------|
+| LED Vermelho (RED)      | GPIO 13   |
+| LED Verde (GREEN)       | GPIO 11   |
+| LED Azul (BLUE)         | GPIO 12   |
+| Buzzer                  | GPIO 21   |
+| Teclado Linha 1         | GPIO 1    |
+| Teclado Linha 2         | GPIO 2    |
+| Teclado Linha 3         | GPIO 3    |
+| Teclado Linha 4         | GPIO 4    |
+| Teclado Coluna 1        | GPIO 5    |
+| Teclado Coluna 2        | GPIO 6    |
+| Teclado Coluna 3        | GPIO 7    |
+| Teclado Coluna 4        | GPIO 8    |
+
 
 ## Requisitos
 
