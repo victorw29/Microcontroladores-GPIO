@@ -1,3 +1,13 @@
+/* Função para tocar uma nota por um determinado tempo (em milissegundos) */
+void tocar_nota(int frequencia, int duracao_ms) {
+    int tempo = 1000000 / frequencia; // cálculo de tempo para cada ciclo
+    for (int i = 0; i < (duracao_ms * 1000) / tempo; i++) {
+        gpio_put(BUZZER, 1);
+        sleep_us(tempo / 2);
+        gpio_put(BUZZER, 0);
+        sleep_us(tempo / 2);
+    }
+}
 
 int main() {
     stdio_init_all();
