@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.hs": "alex",
+        "GPIO.C": "cpp",
+        "MICROCONTROLADOR.C": "cpp"
+    }
+}
