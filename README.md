@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Este projeto implementa um sistema de teclado matricial de 4x4 em um Raspberry Pi Pico, com LEDs RGB e um buzzer, onde cada tecla pressionada aciona um LED específico e ativa um buzzer. O sistema é desenvolvido utilizando a linguagem C e a biblioteca Pico SDK.
+Este projeto implementa um sistema de teclado matricial 4x4 em um Raspberry Pi Pico, controlando LEDs RGB e um buzzer. Cada tecla pressionada aciona um LED específico e ativa um buzzer para fornecer feedback visual e sonoro, utilizando a linguagem C e a biblioteca Pico SDK.
 
 ### Funcionalidades
 
@@ -42,16 +42,16 @@ Este projeto implementa um sistema de teclado matricial de 4x4 em um Raspberry P
 ## Como Funciona
 
 1. **Inicialização dos Pinos GPIO**: 
-   Os pinos GPIO do Raspberry Pi Pico são configurados para o teclado, LEDs e buzzer. O teclado matricial é escaneado através de pinos de linha e coluna. LEDs RGB e o buzzer são configurados como pinos de saída.
+   Os pinos GPIO do Raspberry Pi Pico são configurados para o teclado, LEDs e buzzer. O teclado matricial é escaneado através de pinos de linha e coluna, enquanto os LEDs RGB e o buzzer são configurados como saídas.
 
 2. **Escaneamento do Teclado**: 
-   A função `KeyPressed` escaneia o teclado matricial. Cada linha é ativada uma de cada vez, e as colunas são verificadas para detectar a tecla pressionada.
+   A função `KeyPressed` escaneia o teclado matricial de 4x4. Cada linha do teclado é ativada de forma sequencial, e as colunas são verificadas para identificar a tecla pressionada.
 
 3. **Acionamento dos LEDs e Buzzer**: 
-   Quando uma tecla é pressionada, o LED correspondente à tecla é aceso e o buzzer é ativado. O LED permanece aceso por 300 ms, e o buzzer também toca durante esse período.
+   Quando uma tecla é pressionada, o LED RGB correspondente à tecla é aceso e o buzzer é ativado por 300 ms. O LED permanece aceso enquanto a tecla estiver pressionada.
 
 4. **Debounce**: 
-   A função `sleep_ms(300)` foi implementada após a leitura de uma tecla para evitar múltiplas leituras rápidas devido ao comportamento físico do teclado.
+   Para evitar leituras múltiplas da mesma tecla devido a oscilações do sinal no teclado, foi implementada uma função de debounce que realiza uma pausa de 300 ms após cada leitura de tecla, garantindo que cada pressionamento seja registrado apenas uma vez.
 
 ## Como Usar
 
@@ -73,20 +73,52 @@ O código principal está dividido em várias funções para modularizar o proce
 - **Teclado Matricial**: Os pinos do teclado matricial (linhas e colunas) são configurados no loop principal para permitir a detecção da tecla pressionada.
 
 ## Controle dos LEDs RGB
-- **`acionar_led(int cor)`**: Liga o LED da cor especificada (vermelho, verde ou azul), se ele estiver desligado.
-- **`desligar_led(int led)`**: Desliga o LED especificado, se ele estiver ligado.
+- **`acionar_led(int cor)`**: Acende o LED da cor especificada (vermelho, verde ou azul). Cada cor é controlada pelos pinos GPIO correspondentes a R, G e B.
+- **`desligar_led(int cor)`**: Desliga o LED especificado.
+
+As cores são associadas da seguinte forma:
+- **Vermelho**: GPIO 13
+- **Verde**: GPIO 11
+- **Azul**: GPIO 12
 
 ## Controle do Buzzer
 - **`acionar_buzzer()`**: Liga o buzzer, se ele estiver desligado.
 - **`desligar_buzzer()`**: Desliga o buzzer, se ele estiver ligado.
+-  **`tocar_musica(char tecla)`**: Toca uma música com base na tecla pressionada.
 
 ## Lógica Principal
+
 A lógica do programa detecta as teclas pressionadas no teclado matricial e realiza as seguintes ações:
-- **Tecla 'A'**: Liga o LED vermelho e desliga os outros LEDs e o buzzer.
-- **Tecla 'B'**: Liga o LED verde e desliga os outros LEDs e o buzzer.
-- **Tecla 'C'**: Liga o LED azul e desliga os outros LEDs e o buzzer.
-- **Tecla '#'**: Liga o buzzer e desliga todos os LEDs.
-- **Tecla 'X' (nenhuma tecla pressionada)**: Desliga todos os LEDs e o buzzer.
+
+- **Tecla 'A'**: 
+  - Liga o LED vermelho.
+  - Desliga os outros LEDs e o buzzer.
+  - **Buzzer**: Toca a nota **C**.
+
+- **Tecla 'B'**: 
+  - Liga o LED verde.
+  - Desliga os outros LEDs e o buzzer.
+  - **Buzzer**: Toca a nota **D**.
+
+- **Tecla 'C'**: 
+  - Liga o LED azul.
+  - Desliga os outros LEDs e o buzzer.
+  - **Buzzer**: Toca a nota **E**.
+
+- **Tecla '#'**: 
+  - Liga o buzzer.
+  - Desliga todos os LEDs.
+  - **Buzzer**: Toca a nota **F**.
+
+- **Tecla 'X' (nenhuma tecla pressionada)**: 
+  - Desliga todos os LEDs e o buzzer.
+  - **Buzzer**: Não toca nenhuma nota.
+
+### Exemplo de Comportamento
+
+- Se você pressionar a tecla 'A', o LED vermelho acende e o buzzer toca a nota **C**.
+- Se pressionar a tecla 'B', o LED verde acende e o buzzer toca a nota **D**.
+- Ao pressionar '#' o buzzer é ativado e toca a nota **F**, enquanto os LEDs são desligados.
 
 ## Definição dos Pinos
 Os pinos utilizados no código são definidos da seguinte maneira:
@@ -95,17 +127,22 @@ Os pinos utilizados no código são definidos da seguinte maneira:
 - **LED Azul**: GPIO 12
 - **Buzzer**: GPIO 21
 
-## Teclado Matricial
-As teclas do teclado matricial são mapeadas para uma matriz de 4x4 no código:
+### Mapeamento do Teclado Matricial
 
-|   | 1 | 2 | 3 | A |
-|---|---|---|---|---|
-| 4 | 4 | 5 | 6 | B |
-| 7 | 7 | 8 | 9 | C |
-| * | * | 0 | # | D |
+O teclado matricial 4x4 é mapeado para as seguintes teclas:
 
-Os pinos GPIO 1 a 4 são utilizados como saídas para as linhas, e os pinos GPIO 5 a 8 são utilizados como entradas para as colunas.
+| Linha/Coluna | 1 | 2 | 3 | A |
+|--------------|---|---|---|---|
+| **1**        | 1 | 2 | 3 | A |
+| **2**        | 4 | 5 | 6 | B |
+| **3**        | 7 | 8 | 9 | C |
+| **4**        | * | 0 | # | D |
 
+A correspondência das teclas do teclado é feita com os pinos de linha (GPIO 1-4) e coluna (GPIO 5-8), com cada tecla sendo ativada ao pressionar uma linha e uma coluna simultaneamente.
+
+## Implementação do Debounce
+
+O debounce é um processo que evita múltiplas leituras do teclado quando uma tecla é pressionada rapidamente. Para garantir que o sistema detecte uma única pressão de tecla, foi adicionado um tempo de espera de 300 ms após a leitura de cada tecla pressionada. Isso impede a leitura repetida da tecla devido ao efeito de "bouncing" (quando o sinal elétrico oscila antes de se estabilizar).
 
 ### Arquivo `.gitignore`
 
@@ -214,6 +251,8 @@ Depois de copiado para sua máquina o repositório, você pode baixar atualizaç
 **git push origin main** https://github.com/victorw29/Microcontroladores-GPIO
 
 ### Ajude-nos a melhorar esse software, contribuindo com seus conhecimentos!!
+
+## Link para o video no youtube: https://youtu.be/ElVegS0reHA
 
 ## Colaboradores
 
