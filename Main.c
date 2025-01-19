@@ -1,12 +1,6 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 
-// Pinos
-#define LED_RED 13
-#define LED_GREEN 11
-#define LED_BLUE 12
-#define BUZZER 21
-
 // Frequências das notas (em Hertz)
 #define NOTE_C 261
 #define NOTE_D 294
@@ -17,7 +11,13 @@
 #define NOTE_B 466
 #define NOTE_C_HIGH 523
 
-/* Inicializa os pinos dos LEDs */
+// Pinos 
+#define LED_RED 13
+#define LED_GREEN 11
+#define LED_BLUE 12
+#define BUZZER 21
+
+/* Inicializa e configurar os pinos dos LEDs */
 void iniciar_leds(void) {
     gpio_init(LED_RED);
     gpio_set_dir(LED_RED, GPIO_OUT);
