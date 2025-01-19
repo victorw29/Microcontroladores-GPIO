@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include "pico/stdlib"
+
 /* Função para tocar uma nota por um determinado tempo (em milissegundos) */
 void tocar_nota(int frequencia, int duracao_ms) {
     int tempo = 1000000 / frequencia; // cálculo de tempo para cada ciclo
