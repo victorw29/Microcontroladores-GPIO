@@ -14,7 +14,6 @@ Este projeto implementa um sistema de teclado matricial de 4x4 em um Raspberry P
   
 ### Diagrama de Pinagem
 
-## Diagrama de Pinagem
 
 | Componente              | GPIO/Pino |
 |-------------------------|-----------|
