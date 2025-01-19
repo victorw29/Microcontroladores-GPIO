@@ -252,7 +252,7 @@ Depois de copiado para sua máquina o repositório, você pode baixar atualizaç
 
 ### Ajude-nos a melhorar esse software, contribuindo com seus conhecimentos!!
 
-## Link para o video no youtube: https://youtu.be/ElVegS0reHA
+## Link para o video no youtube: 
 ## Link do projeto no site do Wokwi Simulator: https://wokwi.com/projects/420526874831393793
 
 ## Colaboradores
