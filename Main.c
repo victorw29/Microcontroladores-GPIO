@@ -68,7 +68,7 @@ void desligar_buzzer() {
     gpio_put(BUZZER, 0); // Define o estado do buzzer como desligado
 }
 
-/* Função para tocar uma nota por um determinado tempo (em milissegundos) */
+/* Função para tocar uma nota por um determinado tempo (em milissegundos) - Feita por Davi Dantas*/
 void tocar_nota(int frequencia, int duracao_ms) {
     int tempo = 1000000 / frequencia;  // cálculo de tempo para cada ciclo
     for (int i = 0; i < (duracao_ms * 1000) / tempo; i++) {
